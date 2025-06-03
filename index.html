@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - LocalLang.Codes</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #1e3a8a, #7c3aed);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.2), transparent);
+      z-index: 0;
+    }
+    .login-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 3rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .login-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.1), transparent);
+      transform: rotate(45deg);
+      z-index: -1;
+    }
+    .login-logo {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #1e3a8a;
+      background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    .login-subtitle {
+      font-size: 1.2rem;
+      color: #4b5563;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+    .login-form input {
+      padding: 0.9rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      outline: none;
+      background: rgba(255, 255, 255, 0.8);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .login-form input:focus {
+      border-color: #1e3a8a;
+      box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.2);
+    }
+    .login-form button {
+      padding: 0.9rem;
+      background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+      color: #fff;
+      border: none;
+      border-radius: 2rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .login-form button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 14px rgba(30, 58, 138, 0.4);
+    }
+    .login-form button:active {
+      transform: scale(0.95);
+    }
+    .login-link {
+      margin-top: 2rem;
+      color: #4b5563;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    .login-link a {
+      color: #1e3a8a;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .login-link a:hover {
+      color: #3b82f6;
+    }
+    .login-decoration {
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 150px;
+      height: 150px;
+      background: linear-gradient(45deg, rgba(59, 130, 246, 0.3), rgba(124, 58, 237, 0.3));
+      border-radius: 50%;
+      z-index: -1;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-logo">LocalLang.Codes</div>
+    <div class="login-subtitle">Sign in to code in your language</div>
+    <form class="login-form" onsubmit="handleLogin(event)">
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Login to LocalLang.Codes</button>
+    </form>
+    <div class="login-link">
+      Back to <a href="index.html">Home</a>
+    </div>
+    <div class="login-decoration"></div>
+  </div>
+
+  <script>
+    window.onload = () => {
+      gsap.from('.login-container', {
+        opacity: 0,
+        scale: 0.9,
+        duration: 1,
+        ease: 'back.out(1.7)',
+      });
+      gsap.from('.login-logo, .login-subtitle, .login-form input, .login-form button, .login-link', {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power3.out',
+        delay: 0.2,
+      });
+      gsap.from('.login-decoration', {
+        opacity: 0,
+        scale: 0.5,
+        duration: 1.5,
+        ease: 'power3.out',
+        delay: 0.5,
+      });
+    };
+
+    function handleLogin(event) {
+      event.preventDefault();
+      alert('Login successful! Redirecting...');
+      // Redirect to homepage after successful login (placeholder)
+      window.location.href = 'home.html';
+    }
+  </script>
+</body>
+</html>
